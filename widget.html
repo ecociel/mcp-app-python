@@ -1,25 +1,147 @@
-<!--<!DOCTYPE html>-->
-<!--<html>-->
-<!--<body>-->
-<!--  <h1>Pizza Widget</h1>-->
-<!--  <p>Your topping: {{ pizzaTopping }}</p>-->
-<!--</body>-->
-<!--</html>-->
-
-
 <!DOCTYPE html>
 <html>
-  <body style="font-family: sans-serif;">
-    <h1 style="color: red">Widget Loaded!</h1>
-    <p id="topic">Loading…</p>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+    }
+    .chat-container {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .bubble {
+      padding: 12px 16px;
+      border-radius: 12px;
+      max-width: 80%;
+      line-height: 1.4;
+    }
+    .bot {
+      background: #fff;
+      border: 1px solid #ddd;
+    }
+    .user {
+      background: #d0ebff;
+      border: 1px solid #a5d8ff;
+      align-self: flex-end;
+    }
+    form {
+      background: #fff;
+      border-top: 1px solid #ddd;
+      padding: 16px;
+      display: flex;
+      gap: 10px;
+      position: sticky;
+      bottom: 0;
+    }
+    input {
+      flex: 1;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0069d9;
+    }
+  </style>
+</head>
+<body>
 
-    <script>
-      // MCP Widgets receive tool data here:
-      const output = window.openai.toolOutput;
-      const meta = window.openai.toolResponseMetadata;
+<div id="chat" class="chat-container"></div>
 
-      document.getElementById("topic").textContent =
-        "Tool output: " + JSON.stringify(output);
-    </script>
-  </body>
+<form id="form">
+  <input id="input" type="text" placeholder="Type a pizza topping…" required />
+  <button type="submit">Send</button>
+</form>
+
+<script>
+  const chat = document.getElementById("chat");
+  const form = document.getElementById("form");
+  const input = document.getElementById("input");
+
+  function bot(text) {
+    const div = document.createElement("div");
+    div.className = "bubble bot";
+    div.textContent = text;
+    chat.appendChild(div);
+  }
+
+  function user(text) {
+    const div = document.createElement("div");
+    div.className = "bubble user";
+    div.textContent = text;
+    chat.appendChild(div);
+  }
+
+  // --- MCP data ---
+  const output = window.openai?.toolOutput;
+  const meta   = window.openai?.toolResponseMetadata;
+
+  // --- Initial messages ---
+  bot("Hello! 👋 Welcome to the Pizza Widget.");
+  bot("Please type a pizza topping:");
+
+  // --- If the server returned structured content, show it ---
+  if (output && typeof output === "object") {
+    bot("Received from server (structuredContent):");
+    bot(JSON.stringify(output, null, 2));
+
+    // More friendly automatic message
+    if (output.pizzaTopping) {
+      bot("🍕 Your topping from the server is: " + output.pizzaTopping);
+    }
+  }
+
+  // --- local chat behavior ---
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const topping = input.value.trim();
+    if (!topping) return;
+
+    // User message
+    user(topping);
+
+    // Chatbot response
+    bot("Here is your pizza with " + topping + " 🍕");
+
+    input.value = "";
+  });
+</script>
+
+</body>
 </html>
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--  <body style="font-family: sans-serif;">-->
+<!--    <h1 style="color: red">Widget Loaded!</h1>-->
+<!--    <p id="topic">Loading…</p>-->
+
+<!--    <script>-->
+<!--      const output = window.openai.toolOutput;-->
+<!--      const meta = window.openai.toolResponseMetadata;-->
+
+<!--      document.getElementById("topic").textContent =-->
+<!--        "Tool output: " + JSON.stringify(output);-->
+<!--    </script>-->
+<!--  </body>-->
+<!--</html>-->
