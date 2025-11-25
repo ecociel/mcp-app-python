@@ -125,8 +125,8 @@ async def widget():
 )
 async def get_info(topic: str):
     return {
-        "structuredContent": {"topic": topic},
-        "content": [{"type": "text", "text": f"Topic is {topic}"}],
+        "structuredContent": {"pizzaTopping": topic},#{"topic": topic},
+        "content": [{"type": "text", "text": f"Widget rendered {topic}"}],
         "_meta": {"echo": topic},
     }
 
