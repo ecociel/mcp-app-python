@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <body>
+    <div id="widget-host" data-skybridge-root></div>
+
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -34,70 +36,88 @@
         );
       }
 
+      const host = document.querySelector("#widget-host");
+      const shadow = host.attachShadow({ mode: "open" });
+
       const template = document.getElementById("greeting-widget-template");
       const fragment = template.content.cloneNode(true);
-      const shadow = document.body.attachShadow({ mode: "open" });
       shadow.appendChild(fragment);
 
       function renderWidget() {
-        const output = window.openai?.toolOutput;
+        // Provided by ChatGPT tool system
         const meta = window.openai?.toolResponseMetadata;
-
         const name = meta?.structuredContent?.name ?? "friend";
 
         const root = shadow.querySelector("#root");
-
         ReactDOM.createRoot(root).render(<GreetingWidget name={name} />);
       }
 
-      window.addEventListener("DOMContentLoaded", () => {
-        renderWidget();
-      });
-
-      window.addEventListener("openai-tool-output-update", () => {
-        renderWidget();
-      });
+      window.addEventListener("DOMContentLoaded", renderWidget);
+      window.addEventListener("openai-tool-output-update", renderWidget);
     </script>
   </body>
 </html>
 
 
-
 <!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--  <head>-->
-<!--    <meta charset="UTF-8" />-->
-<!--    <title>Greeting Widget</title>-->
-<!--  </head>-->
+<!--<html>-->
 <!--  <body>-->
-<!--    <div id="root"></div>-->
-<!--    <script type="module">-->
-<!--      import React from "https://esm.sh/react@18";-->
-<!--      import ReactDOM from "https://esm.sh/react-dom@18/client";-->
+<!--    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>-->
+<!--    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>-->
+<!--    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>-->
 
-<!--      function Greeting() {-->
-<!--        const output = window.openai.toolOutput?.structuredContent;-->
+<!--    <template id="greeting-widget-template">-->
+<!--      <style>-->
+<!--        .container {-->
+<!--          font-family: sans-serif;-->
+<!--          padding: 16px;-->
+<!--          border: 1px solid #ddd;-->
+<!--          border-radius: 8px;-->
+<!--          background: #fafafa;-->
+<!--        }-->
+<!--        .title {-->
+<!--          font-size: 22px;-->
+<!--          font-weight: bold;-->
+<!--          margin-bottom: 10px;-->
+<!--        }-->
+<!--      </style>-->
 
-<!--        return React.createElement(-->
-<!--          "div",-->
-<!--          {-->
-<!--            style: {-->
-<!--              fontFamily: "Arial, sans-serif",-->
-<!--              fontSize: "18px",-->
-<!--              padding: "12px",-->
-<!--              backgroundColor: "#f0f0f0",-->
-<!--              borderRadius: "8px",-->
-<!--              color: "#333",-->
-<!--            },-->
-<!--          },-->
-<!--          output?.greeting || "Loading..."-->
+<!--      <div id="root"></div>-->
+<!--    </template>-->
+
+<!--    <script type="text/babel">-->
+<!--      function GreetingWidget({ name }) {-->
+<!--        return (-->
+<!--          <div className="container">-->
+<!--            <div className="title">👋 React Greeting Widget</div>-->
+<!--            <p>Hello, <strong>{name}</strong>!</p>-->
+<!--          </div>-->
 <!--        );-->
 <!--      }-->
 
-<!--      ReactDOM.createRoot(document.getElementById("root")).render(-->
-<!--        React.createElement(Greeting)-->
-<!--      );-->
+<!--      const template = document.getElementById("greeting-widget-template");-->
+<!--      const fragment = template.content.cloneNode(true);-->
+<!--      const shadow = document.body.attachShadow({ mode: "open" });-->
+<!--      shadow.appendChild(fragment);-->
+
+<!--      function renderWidget() {-->
+<!--        const output = window.openai?.toolOutput;-->
+<!--        const meta = window.openai?.toolResponseMetadata;-->
+
+<!--        const name = meta?.structuredContent?.name ?? "friend";-->
+
+<!--        const root = shadow.querySelector("#root");-->
+
+<!--        ReactDOM.createRoot(root).render(<GreetingWidget name={name} />);-->
+<!--      }-->
+
+<!--      window.addEventListener("DOMContentLoaded", () => {-->
+<!--        renderWidget();-->
+<!--      });-->
+
+<!--      window.addEventListener("openai-tool-output-update", () => {-->
+<!--        renderWidget();-->
+<!--      });-->
 <!--    </script>-->
 <!--  </body>-->
 <!--</html>-->
-
