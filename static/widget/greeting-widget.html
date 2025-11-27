@@ -45,6 +45,7 @@
     shadow.appendChild(fragment);
 
     function renderWidget() {
+        const output = window.openai?.toolOutput;
         const meta = window.openai?.toolResponseMetadata;
         const name = meta?.structuredContent?.name ?? "friend";
 

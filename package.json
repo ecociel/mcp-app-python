@@ -1,0 +1,7 @@
+{
+  "name": "mcp-app",
+  "private": true,
+  "scripts": {
+    "build-widgets": "cd widgets/greeting-widget && npm install && npm run build && mkdir -p ../../dist/widgets/greeting-widget && cp -a dist/* ../../dist/widgets/greeting-widget/"
+  }
+}

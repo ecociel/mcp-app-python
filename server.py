@@ -1,35 +1,33 @@
 from pathlib import Path
-from mcp.server.fastmcp import FastMCP
 import mcp.types as types
+from mcp.server.fastmcp import FastMCP
 from pydantic import BaseModel, Field
 
-HTML_PATH = Path(__file__).parent / "widget.html"
-HTML_TEXT = HTML_PATH.read_text(encoding="utf8")
+DIST_WIDGETS_DIR = Path(__file__).parent / "dist" / "widgets" / "greeting-widget"
+
+DEV_WIDGET_PATH = Path(__file__).parent / "widgets" / "greeting-widget" / "index.html"
 
 MIME_TYPE = "text/html+skybridge"
-WIDGET_URI = "ui://widget/example.html"
+WIDGET_URI = "ui://widget/greeting-widget.html"
+
+mcp = FastMCP(name="minimal-react-mcp", stateless_http=True)
 
 
 class WidgetInput(BaseModel):
-    pizzaTopping: str = Field(..., description="Topping to render.")
-
-
-mcp = FastMCP(name="minimal-mcp", stateless_http=True)
+    name: str = Field(..., description="Name to greet.")
 
 
 @mcp._mcp_server.list_tools()
 async def list_tools():
     return [
         types.Tool(
-            name="show-widget",
-            title="Show Widget",
-            description="Render the example widget.",
+            name="show-greeting-widget",
+            title="Show Greeting React Widget",
+            description="Render a React + Vite widget.",
             inputSchema={
                 "type": "object",
-                "properties": {
-                    "pizzaTopping": {"type": "string"}
-                },
-                "required": ["pizzaTopping"],
+                "properties": {"name": {"type": "string"}},
+                "required": ["name"],
             },
             _meta={
                 "openai/outputTemplate": WIDGET_URI,
@@ -44,23 +42,42 @@ async def list_tools():
 async def list_resources():
     return [
         types.Resource(
-            name="example-widget",
-            title="Example Widget",
+            name="greeting-widget",
+            title="Greeting Widget",
             uri=WIDGET_URI,
-            description="Example widget HTML.",
+            description="Greeting widget HTML built by Vite.",
             mimeType=MIME_TYPE,
         )
     ]
 
 
+def find_built_widget_html() -> Path | None:
+    """
+    Look for greeting-widget.*.html inside the Vite build output.
+    If not found, return DEV_WIDGET_PATH if it exists.
+    """
+    if DIST_WIDGETS_DIR.exists():
+        matches = list(DIST_WIDGETS_DIR.glob("*.html"))
+        if matches:
+            return matches[0]
+    if DEV_WIDGET_PATH.exists():
+        return DEV_WIDGET_PATH
+    return None
+
+
 async def handle_resource(req: types.ReadResourceRequest):
+    html_path = find_built_widget_html()
+    if not html_path:
+        return types.ServerResult(types.ReadResourceResult(contents=[]))
+
+    text = html_path.read_text(encoding="utf8")
     return types.ServerResult(
         types.ReadResourceResult(
             contents=[
                 types.TextResourceContents(
                     uri=WIDGET_URI,
                     mimeType=MIME_TYPE,
-                    text=HTML_TEXT,
+                    text=text,
                 )
             ]
         )
@@ -72,12 +89,12 @@ mcp._mcp_server.request_handlers[types.ReadResourceRequest] = handle_resource
 
 async def call_tool(req: types.CallToolRequest):
     args = req.params.arguments or {}
-    topping = args.get("pizzaTopping", "")
+    name = args.get("name", "")
 
     return types.ServerResult(
         types.CallToolResult(
-            content=[types.TextContent(type="text", text=f"Widget rendered!")],
-            structuredContent={"pizzaTopping": topping},
+            content=[types.TextContent(type="text", text="Widget rendered!")],
+            structuredContent={"name": name},
         )
     )
 
@@ -90,67 +107,3 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
-# ============================================================================
-# from fastmcp import FastMCP
-# from pathlib import Path
-# import mcp.types as types
-#
-# mcp = FastMCP(name="my-mcp-app", stateless_http=True)
-#
-# WIDGET_URI = "ui://widget/example.html"
-# MIME_TYPE = "text/html+skybridge"
-# HTML_PATH = Path(__file__).parent / "widget.html"
-# HTML_TEXT = HTML_PATH.read_text(encoding="utf8")
-#
-#
-# # @mcp.resource(WIDGET_URI)
-# # async def widget():
-# #     # Return proper MCP ServerResult wrapping ReadResourceResult with TextResourceContents
-# #     return types.ServerResult(
-# #         types.ReadResourceResult(
-# #             contents=[
-# #                 types.TextResourceContents(
-# #                     uri=WIDGET_URI,
-# #                     mimeType=MIME_TYPE,
-# #                     text=HTML_TEXT,
-# #                 )
-# #             ]
-# #         )
-# #     )
-#
-# @mcp.resource(WIDGET_URI)
-# async def widget():
-#     return {
-#         "contents": [
-#             {
-#                 "uri": WIDGET_URI,
-#                 "mimeType": MIME_TYPE,
-#                 "text": HTML_TEXT,
-#             }
-#         ]
-#     }
-#
-#
-# @mcp.tool(
-#     meta={
-#         "openai/outputTemplate": WIDGET_URI,
-#         "openai/widgetAccessible": True,
-#         "openai/resultCanProduceWidget": True,
-#     }
-# )
-# async def get_info(topic: str):
-#     return {
-#         "structuredContent": {"pizzaTopping": topic},  # {"topic": topic},
-#         "content": [{"type": "text", "text": f"Widget rendered {topic}"}],
-#         "_meta": {"echo": topic},
-#     }
-#
-#
-# if __name__ == "__main__":
-#     mcp.run(
-#         transport="http",
-#         host="127.0.0.1",
-#         port=8000,
-#         path="/mcp"
-#     )
