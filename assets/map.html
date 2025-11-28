@@ -10,7 +10,7 @@
 <script id="search-js" defer src="https://api.mapbox.com/search-js/v1.3.0/web.js"></script>
 
 </head>
-<link href="./style.css" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/>
 
 <body>
     <div id="map"></div>
@@ -19,8 +19,8 @@
       <h3>Fly to: </h3>
       <ul>
         <li><button id="berlin">Berlin</button></li>
-        <li><button id="cleveland">Cleveland</button></li>
-        <li><button id="burlington">Burlington</button></li>
+        <li><button id="erode">Erode</button></li>
+        <li><button id="chennai">Chennai</button></li>
       </ul>
     </div>
 
@@ -36,15 +36,15 @@
         bearing:38.36,
         pitch: 65.79
       },
-      cleveland: {
-        center: [-81.57391400282499, 41.572300879522516],
+      erode: {
+        center: [77.72757, 11.33239],
         zoom: 16.4, 
         bearing: 0, 
         pitch: 52.5
 
       },
-      burlington: {
-        center: [-73.21866556424258, 44.47414554129139],
+      chennai: {
+        center: [80.24272, 13.05495],
         zoom: 16,
         bearing: 39.12,
         pitch: 60.2
@@ -126,7 +126,7 @@
             el.className = 'marker';
 
             const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-                `<div class="flex"><img src="./burger.png" alt="burger" /><h3>${feature.properties.name}</h3></div>
+                `<div class="flex"><img src="burger.png" alt="burger" /><h3>${feature.properties.name}</h3></div>
                 <p><span class="bold">Burgers: </span>${feature.properties.menu}</p>
                 <p class="address">${feature.properties.address}</p>
                 <p><a href="${feature.properties.link}" target="_blank">More Info</a></p>`
