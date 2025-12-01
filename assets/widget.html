@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Table Booking</title>
-    <link href="https://untaxied-subintroductive-sadye.ngrok-free.dev/static/stylesheet.css" rel="stylesheet"/>
+    <base href="__BASE_URI__/">
+    <link href="/assets/stylesheet.css" rel="stylesheet"/>
 </head>
 <body>
 <h1>Table Booking</h1>
@@ -72,7 +73,7 @@
             const bookingTime = document.getElementById("bookingTime").value;
 
             try {
-                const res = await fetch("https://untaxied-subintroductive-sadye.ngrok-free.dev/api/bookings", {
+                const res = await fetch("/api/bookings", {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({
