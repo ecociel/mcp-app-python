@@ -22,7 +22,8 @@ MCP (Model Context Protocol) is a standard for letting AI models access external
 - **Resources**: Data sources made available to the AI.
 - **Widgets**: HTML or UI components that can be shown inside AI interfaces.
 
-For more details, visit https://modelcontextprotocol.io
+For more details, visit 
+https://modelcontextprotocol.io
 https://developers.openai.com/apps-sdk/quickstart
 https://developers.openai.com/apps-sdk/build/mcp-server#structure-the-data-your-tool-returns
 
