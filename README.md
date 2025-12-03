@@ -4,7 +4,7 @@
 
 ## Overview
 
-This project demonstrates how to build a Python-based MCP server that can serve plain HTML widgets to MCP-aware clients (e.g. LLM front-ends, inspectors, or custom UI).  
+This project demonstrates how to build a Python-based MCP server that can serve plain HTML widgets to MCP-aware clients.  
 
 With this server, you can:  
 
@@ -46,4 +46,11 @@ source .venv/bin/activate
 git clone https://github.com/ecociel/mcp-app-python.git
 cd mcp-app-python
 pip install -r requirements.txt
+```
+---
 
+There are two examples here int he repo to load the widget with Chatgpt.
+### Naive HTML
+
+### Run the MCP Server
+```python server-html.py```
