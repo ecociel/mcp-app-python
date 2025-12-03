@@ -47,6 +47,3 @@ git clone https://github.com/ecociel/mcp-app-python.git
 cd mcp-app-python
 pip install -r requirements.txt
 
----
-### Install Requirements
-
