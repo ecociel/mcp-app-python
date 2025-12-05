@@ -234,22 +234,21 @@ source .venv/bin/activate   # macOS / Linux
 .\.venv\Scripts\activate  # Windows PowerShell
 ```
 
-2. Install dependencies. The repository assumes a Python package named `mcp` is available. Example requirements (you may need to adjust names/versions):
-
-```text
-uvicorn
-pydantic
-# plus the package that provides `mcp` — install according to your project's instructions
-```
-
-You can create a `requirements.txt` with at least:
+2. Install dependencies. You can create a `requirements.txt` with at least:
 
 ```
+mcp==1.21.2
+fastmcp==2.13.1
 uvicorn
 pydantic
 ```
 
-and then `pip install -r requirements.txt`.
+and then 
+
+```bash
+pip install -r requirements.txt
+```
+
 
 3. Run the server:
 
@@ -263,17 +262,39 @@ Or run directly (this will start uvicorn inside the script):
 python server-html.py
 ```
 
-4. Use your platform-specific MCP client or a test harness to:
+1. Use MCP Inspector with the following command then you can see MCP inspector client open in your browser
+2. Enter http://0.0.0.0:8000/mcp in the URL and Transport should be Streamable HTTP:
+3. Click on connect --> It should connect to the local MCP server running on 8000
 
-* call `list_tools`
-* call `list_resources`
-* call the tool `show-widget` with `{"pizzaTopping": "pepperoni"}`
+```bash
+(npx @modelcontextprotocol/inspector)
+```
+
+* click on `list tools`
+* click on `list resources`
+* click on the tool `show-widget` with `{"pizzaTopping": "pepperoni"}`
 
 ---
 
 ## Example `CallTool` request & response (JSON)
 
-**Request** (simplified):
+**Request using CURL**:
+```curl -X POST http://localhost:8000/mcp \
+  -H "Accept: application/json, text/event-stream" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc":"2.0",
+    "id":1,
+    "method":"resources/read",
+    "params": {"uri":"ui://widget/example.html"}
+  }' \
+| grep '^data:' | sed 's/^data: //' \
+| jq -r '.result.contents[0].text'\
+> widget_test.html
+```
+**Response you can find it in your local repo with the filename widget_test.html**:
+
+**Example Request** (simplified):
 
 ```json
 {
@@ -305,7 +326,6 @@ A conforming client will take the `structuredContent`, fetch the `ui://widget/ex
 * **`WIDGET_URI` and `_meta["openai/outputTemplate"]`**: these must match. They are the contract between the tool definition and the widget resource.
 * **`mimeType`**: Make sure the client knows how to handle `text/html+skybridge`. If your client expects `text/html` exactly, adapt accordingly.
 * **`structuredContent`**: This is how you send machine-readable data to the widget. Keep it small and predictable.
-* **Sandboxing & security**: When rendering HTML from your server in a client, restrict what it can do (sandbox iframes, CSP, sanitize inputs, etc.). Serving arbitrary HTML can be a security risk.
 
 ---
 
@@ -320,28 +340,6 @@ A conforming client will take the `structuredContent`, fetch the `ui://widget/ex
 * If `HTML_TEXT` fails to load on startup, verify `widget.html` is present and readable where `server-html.py` expects it.
 
 ---
-
-## Extending this example
-
-* Make the widget call back to the server (e.g. add a small JS client that posts to a `CallTool` endpoint) instead of only showing a local reply.
-* Add more structured fields to `WidgetInput` and `structuredContent` to enable richer widgets.
-* Add versioning or query parameters to `WIDGET_URI` if you need cache control for widget updates.
-
----
-
-## License
-
-This example is provided as-is. Add your preferred license.
-
----
-
-If you'd like, I can also:
-
-* generate a `requirements.txt` with plausible dependencies,
-* produce a `dockerfile` for containerized running, or
-* produce a short test script that simulates calls to the MCP endpoints.
-
-Tell me which of those you'd like and I'll add them directly to the repo.
 
 
 
