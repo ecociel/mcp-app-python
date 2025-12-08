@@ -9,10 +9,10 @@ HTML_TEXT = HTML_PATH.read_text(encoding="utf8")
 MIME_TYPE = "text/html+skybridge"
 WIDGET_URI = "ui://widget/example.html"
 
-
-class WidgetInput(BaseModel):
-    pizzaTopping: str = Field(..., description="Topping to render.")
-    cheeseType: str = Field(..., description="Cheese type to render.")
+#
+# class WidgetInput(BaseModel):
+#     pizzaTopping: str = Field(..., description="Topping to render.")
+#     cheeseType: str = Field(..., description="Cheese type to render.")
 
 
 mcp = FastMCP(name="minimal-mcp", stateless_http=True)
@@ -22,9 +22,9 @@ mcp = FastMCP(name="minimal-mcp", stateless_http=True)
 async def list_tools():
     return [
         types.Tool(
-            name="show-widget",
-            title="Show Widget",
-            description="Render the example widget.",
+            name="pizza-widget",
+            title="pizza Widget",
+            description="Render the pizza widget.",
             inputSchema={
                 "type": "object",
                 "properties": {
