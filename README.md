@@ -34,6 +34,8 @@ For more details, visit
 A native mobile & desktop app interface for interacting with ChatGPT. The app you use to talk to AI.
 The diagram shows how a user, ChatGPT (AI Model), the OpenAI App (local), and an MCP-based tool server all connect together.
 It represents a local-development architecture where the OpenAI app exposes custom functionality to ChatGPT via a widget.
+<img width="1536" height="1024" alt="app" src="https://github.com/user-attachments/assets/64e01f99-46fd-455a-9fa4-e866db436949" />
+
 1. User - You, the human operator—interact with ChatGPT through OpenAi app, or an app widget inside ChatGPT.
 2. AI Model (ChatGPT / GPT-5, etc.) - Receives your instructions, Understands intent, Decides whether to respond normally or use a tool.
 3. App Widget (inside ChatGPT) - A form powered by your local OpenAI app and rendered inside the ChatGPT interface.
