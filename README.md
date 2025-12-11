@@ -1,4 +1,4 @@
-# mcp-app-python — OpenAi app with HTML widget
+# mcp-app-python — OpenAI App with HTML Widget
 
 This repository demonstrates a minimal **MCP (Model Context Protocol)** server written in Python that exposes a single tool and an HTML widget resource. The widget is a small interactive HTML file (`widget.html`) that can be rendered by a client when the tool runs. The server uses a `FastMCP` helper and a small set of MCP types to register tools and resources and to handle resource and tool requests.
 
