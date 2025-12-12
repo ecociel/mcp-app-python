@@ -1,10 +1,12 @@
-# Introduction - OpenAI App with HTML Widget
+# OpenAI App with HTML Widget
+
+## Introduction
 
 If you’ve heard about MCP or OpenAI Apps and wondered:
 
   **“How do I actually write a OpenAI app that ChatGPT can interact with through secure MCP protocols?”**
 
-…this repo gives you the shortest path to a functioning example.
+  …this repo gives you the shortest path to a functioning example.
 
 **Developers can use it to:**
 
@@ -28,12 +30,12 @@ This repository demonstrates a minimal, production-ready **MCP (Model Context Pr
 
   - Understand how to expose MCP tools, resources, and widgets
 
-  - Run a local OpenAI app that ChatGPT can interact with through secure MCP protocols
+  - Run a local OpenAI app that ChatGPT can interact with
 
 If you're curious about how to make local OpenAI app that ChatGPT can interact with MCP protocol, this repo shows the simplest possible working example.
 
 ---
-# 📌 Overview
+## 📌 Overview
 
 - This repository provides a minimal MCP server implemented in Python.
 - It exposes one MCP tool and one HTML widget resource to any MCP-compatible client (such as ChatGPT).
@@ -43,13 +45,13 @@ If you're curious about how to make local OpenAI app that ChatGPT can interact w
 
 - The server demonstrates how to:
 
-   1. Register tools (list_tools)
+  - Register tools (list_tools)
 
-   2. Register and serve resources (list_resources)
+  - Register and serve resources (list_resources)
 
-   3. Handle widget rendering through ReadResourceRequest
+  - Handle widget rendering through ReadResourceRequest
 
-   4. Return structured results through CallToolRequest
+  - Return structured results through CallToolRequest
 
 - This example is designed as a starting point for building richer widget-enabled MCP apps, local tools, or custom UI integrations.
 
@@ -73,6 +75,7 @@ For more details, visit
 A native mobile & desktop app interface for interacting with ChatGPT. The app you use to talk to AI.
 More details about the app visit - https://developers.openai.com/blog/what-makes-a-great-chatgpt-app
 More details about the app's SDK is here -> https://developers.openai.com/apps-sdk/quickstart
+
 ---
 
 ## 🧪Getting Started
