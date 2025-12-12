@@ -10,9 +10,9 @@ If you’ve heard about MCP or OpenAI Apps and wondered:
 
 **Developers can use it to:**
 
-  - Understand the entire workflow end-to-end
-  - Use it as a template for real projects
-  - Learn best practices through a minimal code example
+  - Understand the entire workflow end-to-end.
+  - Use it as a template for real projects.
+  - Learn best practices through a minimal code example.
   - Extend it into serious tools (file browsers, dashboards, dev tools, agents, etc.)
 
 **This is the fastest way to go from zero → working app with custom UI inside ChatGPT.**
@@ -21,10 +21,10 @@ This repository demonstrates a minimal, production-ready **MCP (Model Context Pr
 
 **It is designed as a clear, practical starting point for developers who want to:**
 
-  - Build custom UI components that appear inside ChatGPT
-  - Serve local interactive interfaces to the model
-  - Understand how to expose MCP tools, resources, and widgets
-  - Run a local OpenAI app that ChatGPT can interact with
+  - Build custom UI components that appear inside ChatGPT.
+  - Serve local interactive interfaces to the model.
+  - Understand how to expose MCP tools, resources, and widgets.
+  - Run a local OpenAI app that ChatGPT can interact with.
 
 **What problem does this repository solve?**
   - Solves the “where do I even start?” problem with MCP + widgets. Official documentation is still evolving, and examples are scarce.This repo serves as a clean, minimal, understandable starting point.
@@ -43,10 +43,10 @@ If you're curious about how to make local OpenAI app that ChatGPT can interact w
 - A small set of MCP types is used to define schemas, responses, and metadata required by the protocol.
 - The server demonstrates how to:
 
-  - Register tools (list_tools)
-  - Register and serve resources (list_resources)
-  - Handle widget rendering through ReadResourceRequest
-  - Return structured results through CallToolRequest
+  - Register tools (list_tools).
+  - Register and serve resources (list_resources).
+  - Handle widget rendering through ReadResourceRequest.
+  - Return structured results through CallToolRequest.
   
 - This example is designed as a starting point for building richer widget-enabled MCP apps, local tools, or custom UI integrations.
 
@@ -432,6 +432,7 @@ Once you have your MCP server and web component working locally, you can add you
 
 * If the widget doesn't render, check the following:
 
+  * The SDK should be FastMCP and the import should be **from mcp.server.fastmcp import FastMCP**.
   * The client properly calls `list_tools` and `list_resources` and maps `openai/outputTemplate` to a resource URI.
   * The client fetches the resource via the MCP `ReadResource` flow and injects `structuredContent` into the widget environment.
   * MIME type mismatches — ensure the client knows how to treat `text/html+skybridge` resources.
