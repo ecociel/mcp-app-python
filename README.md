@@ -1,5 +1,38 @@
 # mcp-app-python — OpenAI App with HTML Widget
 
+If you’ve heard about MCP or OpenAI Apps and wondered:
+
+  “How do I actually write a OpenAI app and ChatGPT to show my own custom interface(widget)?”
+
+  …this repo gives you the shortest path to a functioning example.
+
+Developers can use it to:
+
+  1. Understand the entire workflow end-to-end
+
+  2. Use it as a template for real projects
+
+  3. Learn best practices through a minimal code example
+
+  4. Extend it into serious tools (file browsers, dashboards, dev tools, agents, etc.)
+
+This is the fastest way to go from zero → working custom UI inside ChatGPT.
+
+This repository demonstrates a minimal, production-ready **MCP (Model Context Protocol)** server that exposes a custom HTML widget directly inside ChatGPT using OpenAI’s new App Widgets system.
+
+It is designed as a clear, practical starting point for developers who want to:
+
+  1. Build custom UI components that appear inside ChatGPT
+
+  2. Serve local interactive dashboards or interfaces to the model
+
+  3. Understand how to expose MCP tools, resources, and widgets
+
+  4. Run a local OpenAI app that ChatGPT can interact with through secure MCP protocols
+
+If you're curious about how to make ChatGPT show your own UI, this repo shows the simplest possible working example.
+
+---
 This repository demonstrates a minimal **MCP (Model Context Protocol)** server written in Python that exposes a single tool and an HTML widget resource. The widget is a small interactive HTML file (`widget.html`) that can be rendered by a client when the tool runs. The server uses a `FastMCP` helper and a small set of MCP types to register tools and resources and to handle resource and tool requests.
 
 ---
