@@ -6,16 +6,13 @@ If you’ve heard about MCP or OpenAI Apps and wondered:
 
   **“How do I actually write a OpenAI app that ChatGPT can interact with through secure MCP protocols?”**
 
-  …this repo gives you the shortest path to a functioning example.
+  …this repository gives you the shortest path to a functioning example.
 
 **Developers can use it to:**
 
   - Understand the entire workflow end-to-end
-
   - Use it as a template for real projects
-
   - Learn best practices through a minimal code example
-
   - Extend it into serious tools (file browsers, dashboards, dev tools, agents, etc.)
 
 **This is the fastest way to go from zero → working app with custom UI inside ChatGPT.**
@@ -25,14 +22,11 @@ This repository demonstrates a minimal, production-ready **MCP (Model Context Pr
 **It is designed as a clear, practical starting point for developers who want to:**
 
   - Build custom UI components that appear inside ChatGPT
-
   - Serve local interactive interfaces to the model
-
   - Understand how to expose MCP tools, resources, and widgets
-
   - Run a local OpenAI app that ChatGPT can interact with
 
-If you're curious about how to make local OpenAI app that ChatGPT can interact with MCP protocol, this repo shows the simplest possible working example.
+If you're curious about how to make local OpenAI app that ChatGPT can interact with MCP protocol, this repository shows the simplest possible working example.
 
 ---
 ## 📌 Overview
@@ -42,17 +36,13 @@ If you're curious about how to make local OpenAI app that ChatGPT can interact w
 - The widget is a small interactive HTML file (widget.html) that can be rendered directly inside the client UI when the tool is executed.
 - The server uses **FastMCP**, a lightweight Python SDK, to simplify creating MCP tools, resources, and request handlers.
 - A small set of MCP types is used to define schemas, responses, and metadata required by the protocol.
-
 - The server demonstrates how to:
 
   - Register tools (list_tools)
-
   - Register and serve resources (list_resources)
-
   - Handle widget rendering through ReadResourceRequest
-
   - Return structured results through CallToolRequest
-
+  
 - This example is designed as a starting point for building richer widget-enabled MCP apps, local tools, or custom UI integrations.
 
 ---
@@ -73,8 +63,10 @@ For more details, visit
 ---
 ## What is OpenAI App?
 A native mobile & desktop app interface for interacting with ChatGPT. The app you use to talk to AI.
-More details about the app visit - https://developers.openai.com/blog/what-makes-a-great-chatgpt-app
-More details about the app's SDK is here -> https://developers.openai.com/apps-sdk/quickstart
+
+For more details, visit 
+- About the app - https://developers.openai.com/blog/what-makes-a-great-chatgpt-app
+- About the app's SDK -> https://developers.openai.com/apps-sdk/quickstart
 
 ---
 
