@@ -31,7 +31,7 @@ This repository demonstrates a minimal, production-ready **MCP (Model Context Pr
   - Solves the complexity of building a fully compliant MCP server from scratch.
   - Provides a blueprint for connecting local apps to ChatGPT using real UI.Many developers struggle to let ChatGPT interact with local tools and show results visually.
 
-If you're curious about how to make local OpenAI app that ChatGPT can interact with MCP protocol, this repository shows the simplest possible working example.
+If you're curious about how to make local OpenAI app that ChatGPT can interact with MCP protocol, it shows the simplest possible working example.
 
 ---
 ## 📌 Overview
