@@ -12,14 +12,16 @@ Use it
 - as a template for real OpenAI apps
 - to explore best practices through a minimal code example
 
-This repository demonstrates a minimal MCP server that exposes a custom HTML widget using OpenAI’s new _App Widgets_ system.
+This repository demonstrates a minimal MCP server that exposes 
+- A custom HTML widget using OpenAI’s new _App Widgets_ system.
+- A simple React + Vite widget that displays a personalized greeting.
 
 Further resources:
 - [Quickstart](https://developers.openai.com/apps-sdk/quickstart)
 - [Best Practices](https://developers.openai.com/blog/what-makes-a-great-chatgpt-app)
 - [SDK Issues](/https://github.com/openai/openai-apps-sdk-examples/issues)
 
-## Repo structure
+## Repo structure - HTML Widget
 
 ```
 mcp-app-python/
