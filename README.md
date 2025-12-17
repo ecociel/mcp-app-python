@@ -419,7 +419,7 @@ The server.py file implements a minimal MCP server that exposes:
 - A lightweight HTTP server using FastMCP
 
 The server is responsible for registering MCP tools and resources, loading the widget HTML, and injecting structured data that the React widget can consume.
-Everything is same like the above example code, server initialization, Tool registration, Resource registration, Resource request handler, Tool execution handler except 
+Everything is same like the above example code, server initialization, Tool registration, Resource registration, Resource request handler, Tool execution handler _except_ 
 Paths & constants and Loading and preparing widget HTML.
 
 ---
@@ -453,10 +453,55 @@ The load_html() function prepares the widget HTML for delivery.
 * Production mode
   * Loads the built HTML from DIST_DIR.
   * Inlines all JavaScript and CSS files directly into the HTML.
-  * Moves <script> tags from <head> to after <div id="root">, this ensures React mounts correctly in MCP environments.
+  * Moves <script> tags from <head> to after <div id="root">,this ensures React mounts correctly in MCP environments.
 * Development fallback
   * If no build exists, serves index.html directly
 * Final fallback
   * Returns a simple “Widget not found” HTML message
 
 This makes the widget self-contained and safe to embed.
+
+### Widget entry HTML - index.html
+This file is the entry point for the Greeting Widget UI. It provides the minimal HTML required for the React application to mount and run.
+
+* <div id="root"></div>
+  
+  * This is the mounting point for the React application.
+  * React attaches itself to this element and renders the widget UI inside it.
+
+* <script type="module" src="./src/main.jsx"></script>
+  * Loads the React application entry file:
+    * Uses ES modules (type="module").
+    * main.jsx initializes React and renders the root <App /> component.
+    * During production builds, Vite replaces this with bundled assets.
+
+### React entry point - main.jsx
+This file is the entry point for the React application that powers the greeting widget. It is responsible for bootstrapping React and rendering the root component into the HTML page.
+
+* React imports
+  ```
+  import React from "react";
+  import ReactDOM from "react-dom/client";
+  ```
+  * Imports React core functionality.
+  * Uses the modern React 18 react-dom/client API.
+* Root component import
+  ```
+  import App from "./App.jsx";
+  ```
+  * Imports the main application component that defines the widget UI and logic.
+* Creating the React root
+  ```
+  ReactDOM.createRoot(document.getElementById("root"))
+  ```
+  * Finds the <div id="root"></div> element defined in index.html.
+  * Creates a React root attached to that element.
+* Rendering the application
+  ```
+  .render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+  ```
+  * Renders the <App /> component inside the root.
