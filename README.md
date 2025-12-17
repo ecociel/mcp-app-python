@@ -391,7 +391,7 @@ Once you have your MCP server and web component working locally, you can add you
 ```
 openai-app-starter/
 ├── server.py             # MCP server + tool & resource registration
-└── widgets               # MCP server + tool & resource registration
+└── widgets               
     └── greeting-widget   
         └──index.html     # Entry HTML for the React widget
         └──src
