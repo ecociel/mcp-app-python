@@ -399,8 +399,6 @@ openai-app-starter/
           └──main.jsx     # React entry point rendering
 ```
 
-> Note: The code examples in this README are taken from `server.py` and `index.html` included in this repo.
-
 ---
 
 ## Quick summary
@@ -410,3 +408,55 @@ openai-app-starter/
 - The widget reads this metadata from `window.openai` global and updates the greeting accordingly.
 
 ---
+## Server implementation
+
+### `server.py`
+
+The server.py file implements a minimal MCP server that exposes:
+
+- One tool that accepts user input (name)
+- One HTML widget resource rendered when the tool runs
+- A lightweight HTTP server using FastMCP
+
+The server is responsible for registering MCP tools and resources, loading the widget HTML, and injecting structured data that the React widget can consume.
+Everything is same like the above example code, server initialization, Tool registration, Resource registration, Resource request handler, Tool execution handler except 
+Paths & constants and Loading and preparing widget HTML.
+
+---
+
+### Paths & constants
+
+```py
+ROOT = Path(__file__).resolve().parent
+
+DIST_DIR = ROOT / "dist" / "widgets" / "greeting-widget"
+DEV_HTML = ROOT / "widgets" / "greeting-widget" / "index.html"
+WIDGET_URI = "ui://widget/greeting-widget.html"
+MIME_TYPE = "text/html+skybridge"
+```
+These constants define where the widget HTML comes from and how it is exposed:
+
+* `DIST_DIR` – production build output from Vite (npm run build).
+
+* `DEV_HTML` – fallback HTML used during development.
+
+* `WIDGET_URI` – logical URI used by MCP to reference the widget.
+
+* `MIME_TYPE` – required MIME type for MCP-rendered HTML widgets.
+
+### Loading and preparing widget HTML
+```
+def load_html():
+```
+The load_html() function prepares the widget HTML for delivery.
+
+* Production mode
+  * Loads the built HTML from DIST_DIR.
+  * Inlines all JavaScript and CSS files directly into the HTML.
+  * Moves <script> tags from <head> to after <div id="root">, this ensures React mounts correctly in MCP environments.
+* Development fallback
+  * If no build exists, serves index.html directly
+* Final fallback
+  * Returns a simple “Widget not found” HTML message
+
+This makes the widget self-contained and safe to embed.
