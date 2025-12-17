@@ -24,7 +24,7 @@ Further resources:
 ## Repo structure - HTML Widget
 
 ```
-mcp-app-python/
+openai-app-starter/
 ├── server-html.py        # MCP server + tool & resource registration
 └── widget.html           # Example HTML widget UI
 ```
@@ -385,3 +385,28 @@ Once you have your MCP server and web component working locally, you can add you
 
 ---
 <img width="1536" height="1024" alt="html-image" src="https://github.com/user-attachments/assets/527e52ce-9b8c-4678-81df-7cf1a5aead49" />
+
+---
+## Repo structure - React + Vite widget
+```
+openai-app-starter/
+├── server.py             # MCP server + tool & resource registration
+└── widgets               # MCP server + tool & resource registration
+    └── greeting-widget   
+        └──index.html     # Entry HTML for the React widget
+        └──src
+          └──app.jsx      # React component displaying greeting
+          └──main.jsx     # React entry point rendering
+```
+
+> Note: The code examples in this README are taken from `server.py` and `index.html` included in this repo.
+
+---
+
+## Quick summary
+
+- The React app runs inside the `index.html` served by the MCP server.
+- MCP server injects the user data as structured metadata.
+- The widget reads this metadata from `window.openai` global and updates the greeting accordingly.
+
+---
