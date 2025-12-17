@@ -464,12 +464,12 @@ This makes the widget self-contained and safe to embed.
 ### Widget entry HTML - index.html
 This file is the entry point for the Greeting Widget UI. It provides the minimal HTML required for the React application to mount and run.
 
-* <div id="root"></div>
+* `<div id="root"></div>`
   
   * This is the mounting point for the React application.
   * React attaches itself to this element and renders the widget UI inside it.
 
-* <script type="module" src="./src/main.jsx"></script>
+* `<script type="module" src="./src/main.jsx"></script>`
   * Loads the React application entry file:
     * Uses ES modules (type="module").
     * main.jsx initializes React and renders the root <App /> component.
@@ -494,7 +494,7 @@ This file is the entry point for the React application that powers the greeting 
   ```
   ReactDOM.createRoot(document.getElementById("root"))
   ```
-  * Finds the <div id="root"></div> element defined in index.html.
+  * Finds the `<div id="root"></div>` element defined in index.html.
   * Creates a React root attached to that element.
 * Rendering the application
   ```
