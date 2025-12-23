@@ -387,7 +387,19 @@ Once you have your MCP server and web component working locally, you can add you
 <img width="1536" height="1024" alt="html-image" src="https://github.com/user-attachments/assets/527e52ce-9b8c-4678-81df-7cf1a5aead49" />
 
 ---
-## Repo structure - React + Vite Widget
+## OpenAI App Starter – MCP UI Widget (React + Vite)
+
+This is a starter template for building OpenAI / MCP UI widgets using React + Vite, rendered inside an MCP-compatible client (ChatGPT or MCP Inspector).
+
+- It demonstrates how to:
+- Register an MCP tool and UI resource
+- Render a React widget as an MCP HTML UI
+- Pass structured data from the tool → UI
+- Build and inline a Vite app for safe embedding
+
+---
+
+## Repo structure
 ```
 openai-app-starter/
 ├── server.py               # MCP server + tool & resource registration
@@ -411,7 +423,7 @@ openai-app-starter/
 - The widget reads this metadata from `window.openai` global and updates the greeting accordingly.
 
 ---
-## Server implementation
+## MCP Server implementation
 
 ### `server.py`
 
